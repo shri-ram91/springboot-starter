@@ -1,5 +1,7 @@
 package com.vnxt.service;
 
+import java.util.List;
+
 public interface CrudService<T> {
 
     T create(T t);
@@ -9,4 +11,6 @@ public interface CrudService<T> {
     T update(T t);
 
     void delete(int id);
+
+    List<T> retrieveAll();
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import java.util.List;
+
 @Service
 public class EmployeeService implements CrudService<Employee> {
 
@@ -38,5 +40,10 @@ public class EmployeeService implements CrudService<Employee> {
     @Override
     public void delete(int id) {
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Employee> retrieveAll() {
+        return employeeRepository.findAll();
     }
 }
