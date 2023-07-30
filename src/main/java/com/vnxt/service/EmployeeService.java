@@ -2,14 +2,16 @@ package com.vnxt.service;
 
 import com.vnxt.model.Employee;
 import com.vnxt.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Component
 public class EmployeeService implements CrudService<Employee> {
 
     @Autowired
@@ -45,5 +47,10 @@ public class EmployeeService implements CrudService<Employee> {
     @Override
     public List<Employee> retrieveAll() {
         return employeeRepository.findAll();
+    }
+
+    @KafkaListener(topics = "ADDRESS_TOPIC")
+    public void listen(String message) {
+        System.out.println("Received Messasge in group - group-id: " + message);
     }
 }
